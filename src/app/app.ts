@@ -1,7 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { forkJoin } from 'rxjs';
-import { TodosService } from './_services/todos';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +7,6 @@ import { TodosService } from './_services/todos';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App implements OnInit {
+export class App {
   protected readonly title = signal('ng-unit-tests');
-
-  constructor(private todoService: TodosService) {}
-
-  ngOnInit() {
-    forkJoin({
-      todoAll: this.todoService.getAll(),
-      todoById: this.todoService.getById(1),
-    }).subscribe((result) => {
-      console.log(result.todoAll);
-      console.log(result.todoById);
-    });
-  }
 }
